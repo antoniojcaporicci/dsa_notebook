@@ -1,0 +1,34 @@
+import BinaryTreeNode from "./binarySearchTree.js"
+
+const treeDiameter = (tree) => {
+    if (tree === null) return 0
+
+    let maxDiameter = 0
+
+    // dfs
+    const helper = (node) => {
+        // base case
+        if (!node.left && !node.right) return 0
+
+        // init lmax and rmax
+        let lMax = 0
+        let rMax = 0
+
+        if (node.left !== null) lMax = helper(node.left) + 1
+        if (node.right !== null) rMax = helper(node.left) + 1
+
+        // compare lmax + rmax to maxDiameter
+        maxDiameter = Math.max(maxDiameter, lMax + rMax)
+
+        // return max (lmax, rmax)
+        return Math.max(lMax, rMax)
+    }
+
+    return helper(tree)
+}
+
+const tree = new BinaryTreeNode(9)
+
+tree.insertCollection([3, 2, 5, 7, 13, 12, 1, 11])
+
+console.log(treeDiameter(tree, 12))

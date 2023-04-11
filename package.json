@@ -1,0 +1,16 @@
+{
+  "name": "dsa_sample_code",
+  "version": "1.0.0",
+  "main": "binarySearchTrees.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.0.3"
+  },
+  "devDependencies": {},
+  "description": ""
+}
