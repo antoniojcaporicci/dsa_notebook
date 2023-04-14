@@ -153,10 +153,10 @@ export default class BinaryTreeNode {
     }
 }
 
-const tree = new BinaryTreeNode(9)
+// const tree = new BinaryTreeNode(9)
 
-tree.insertCollection([1, 3, 5, 7, 11])
+// tree.insertCollection([1, 3, 5, 7, 11])
 
-tree.insert(tree, 13)
+// tree.insert(tree, 13)
 
-console.log(tree.delete(5))
+// console.log(tree.delete(5))
