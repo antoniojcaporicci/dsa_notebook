@@ -27,8 +27,21 @@ const treeDiameter = (tree) => {
     return helper(tree)
 }
 
-const tree = new BinaryTreeNode(9)
 
-tree.insertCollection([3, 2, 5, 7, 13, 12, 1, 11])
+class Node {
+    constructor(value) {
+      this.value = value
+      this.left = null
+      this.right = null
+    }
+}
 
-console.log(treeDiameter(tree, 12))
+let newTree = new Node(1)
+newTree.left = new Node(2)
+newTree.right = new Node(3)
+newTree.left.left = new Node(4)
+newTree.left.right = new Node(5)
+newTree.right.left = new Node(6)
+newTree.right.left.right = new Node(7)
+
+console.log(treeDiameter(newTree))
