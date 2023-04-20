@@ -15,27 +15,27 @@
 
 // console.log(binaryStringCombinations(2))
 
-// const get_permutations = (list) => {
-//     const helper = (s, i, slate, arr = []) => {
-//         if (i === s.length) {
-//             arr.push(slate.slice()) // make copy?
-//             return
-//         }
+const get_permutations = (list) => {
+    const helper = (s, i, slate, arr = []) => {
+        if (i === s.length) {
+            arr.push(slate.slice()) // make copy?
+            return
+        }
 
-//         for (let j = i; j <= s.length-1; j++) {
-//             // sandwich recursion for mutable items
-//             [s[i], s[j]] = [s[j], s[i]]
-//             slate.push(s[i])
-//             helper(s, i+1, slate, arr)
-//             slate.pop()
-//             [s[j], s[i]] = [s[i], s[j]]
-//         }
+        for (let j = i; j <= s.length-1; j++) {
+            // sandwich recursion for mutable items
+            [s[i], s[j]] = [s[j], s[i]]
+            slate.push(s[i])
+            helper(s, i+1, slate, arr)
+            slate.pop()
+            [s[j], s[i]] = [s[i], s[j]]
+        }
 
-//         return arr
-//     }
+        return arr
+    }
 
-//     return helper(list, 0, [])
-// }
+    return helper(list, 0, [])
+}
 
 function get_permutations(arr) {
     const helper = (set, i, slate, arr = []) => {

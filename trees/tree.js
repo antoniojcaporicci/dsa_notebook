@@ -36,14 +36,14 @@ class Tree {
         }
 
         preOrderDepthFirstSearch = (root) => {
-//              if (!root.left && !root.right) {
-//                      console.log(root.value)
-//                      return
-//              }
+                //              if (!root.left && !root.right) {
+                //                      console.log(root.value)
+                //                      return
+                //              }
 
                 console.log(root.value)
-                if(root.left) this.preOrderDepthFirstSearch(root.left)
-                if(root.right) this.preOrderDepthFirstSearch(root.right)
+                if (root.left) this.preOrderDepthFirstSearch(root.left)
+                if (root.right) this.preOrderDepthFirstSearch(root.right)
 
                 return
         }
@@ -51,7 +51,7 @@ class Tree {
         paths = () => {
                 const result = []
 
-                const helper = (root,slate) => {
+                const helper = (root, slate) => {
 
                         if (!root.left && !root.right) {
                                 slate.push(root.value)
@@ -62,13 +62,13 @@ class Tree {
 
 
                         slate.push(root.value)
-                        if (root.left) helper(root.left,slate)
-                        if (root.right) helper(root.right,slate)
+                        if (root.left) helper(root.left, slate)
+                        if (root.right) helper(root.right, slate)
 
                         slate.pop()
                 }
 
-                helper(this,[])
+                helper(this, [])
                 return result
         }
 }
