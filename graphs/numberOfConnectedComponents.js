@@ -1,8 +1,6 @@
 // input - n: 5, edgelist: [[0,1],[1,2],[3,4]]
 // ^ output - 2
 
-const { visitCommaListElements } = require("typescript")
-
 // input - n: 5, edgelist: [[0,1],[1,2],[2,3],[3,4]]
 // ^ output - 1
 
@@ -13,6 +11,7 @@ const { visitCommaListElements } = require("typescript")
 const numberOfConnectedComponents = (n, edgeList) => {
     // create an adjacency list of length n filled with empty arrays
     let adjList = Array.from(Array(n), () => ([]))
+    let visited = Array.from(Array(n), () => (-1))
 
     for (let i = 0; i < edgeList.length; i++) {
         adjList[edgeList[i][0]].push(edgeList[i][1])
@@ -20,25 +19,27 @@ const numberOfConnectedComponents = (n, edgeList) => {
     }
 
     // BFS
-    // let queue = []
-    // let visited = []
-    // let i = 0
-    // visited[i] = 1
-    // queue.push(i)
+    const bfsHelper = (n, adjList, visited) => {
+        let queue = []
+        let i = 0
+        visited[i] = 1
+        queue.push(i)
 
-    // while (queue.length) {
-    //     // need to know which nodes have been visited
-    //     queue.pop()
+        while (queue.length) {
+            // need to know which nodes have been visited
+            queue.pop()
 
-    //     for (let neighbor of adjList[i]) {
-    //         if (visited[neighbor] === undefined) {
-    //              visited[neighbor] = 1
-    //              queue.push(neighbor)
-    //         }
-    //     }
-    //     i++
-    // }
+            for (let neighbor of adjList[i]) {
+                if (visited[neighbor] === -1) {
+                    visited[neighbor] = 1
+                    queue.push(neighbor)
+                }
+            }
+            i++
+        }
+    }
 
+    bfsHelper(n, adjList, visited)
     // DFS
     // explore graph from node 
     // let visited = []
@@ -53,13 +54,15 @@ const numberOfConnectedComponents = (n, edgeList) => {
     // helper(adjList)
 
     // launch outer loop
-    let unconnected = 0
+    let unconnected = 1
     for (let i = 0; i < adjList.length; i++) {
-        if (visited[i] === undefined) {
+        if (visited[i] === -1) {
             unconnected++
-            helper(i)
+            bfsHelper(i, adjList, visited)
         }
     }
 
     return unconnected
 }
+
+console.log(numberOfConnectedComponents(5, [[0,1],[1,2],[2,3],[3,4]]))
