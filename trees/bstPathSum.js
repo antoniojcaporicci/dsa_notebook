@@ -32,4 +32,6 @@ const tree = new BinaryTreeNode(9)
 
 tree.insertCollection([3, 2, 5, 7, 11])
 
+console.log(tree)
+
 console.log(pathSumCollections(tree))

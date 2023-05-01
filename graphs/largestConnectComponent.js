@@ -37,10 +37,10 @@ function largest_connected_component(grid) {
 
 const grid = [
     [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1],
+    [1, 1, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 1, 1],
+    [1, 0, 0, 1, 1],
 ]
 
 console.log(largest_connected_component(grid))
