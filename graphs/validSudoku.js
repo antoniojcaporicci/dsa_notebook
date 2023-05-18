@@ -1,5 +1,5 @@
 const testSudoku = [
-    ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+    ["8", "3", ".", ".", "7", ".", ".", ".", "."],
     ["6", ".", ".", "1", "9", "5", ".", ".", "."],
     [".", "9", "8", ".", ".", ".", ".", "6", "."],
     ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
@@ -10,44 +10,40 @@ const testSudoku = [
     [".", ".", ".", ".", "8", ".", ".", "7", "9"]
 ]
 
-/**
- * @param {character[][]} board
- * @return {boolean}
- */
 const isValidSudoku = (board) => {
-    let subgrids = Array.from(Array(board.length), () => new Set())
+    let subGrid = Array.from(Array(board.length), () => new Set())
     let rowSets = Array.from(Array(board.length), () => new Set())
     let colSets = Array.from(Array(board[0].length), () => new Set())
 
-    // TODO: fix this
-    const fillSubGridSets = (i, j) => {
-        for (let k = i * 3; k < (i + 1) * 3; k++) {
-            for (let l = j * 3; l < (j + 1) * 3; l++) {
-                console.log(subgrids[i], [k, l])
-                if (subgrids[i].has(board[k][l])) {
-                    return false
-                } else {
-                    subgrids[i].add(board[k][l])
-                }
-            }
+    const isValidSubGrid = (i, j) => {
+        let index = Math.floor((i / 3) * 3 + (j / 3))
+
+        if (!subGrid[index].has(board[i][j])) {
+            subGrid[index].add(board[i][j])
+            return true
+        } else {
+            return false
         }
     }
 
-    // traverse graph with double for loop
     for (let row = 0; row < board.length; row++) {
         for (let col = 0; col < board[0].length; col++) {
-            fillSubGridSets(row, col)
+            if (board[row][col] === '.') {
+                continue
+            }
 
-            if (rowSets[row].has(board[row][col])) {
-                return false
-            } else {
+            if (!rowSets[row].has(board[row][col])) {
                 rowSets[row].add(board[row][col])
             }
 
-            if (colSets[col].has(board[col][col])) {
-                return false
-            } else {
+            if (!colSets[col].has(board[col][col])) {
                 colSets[col].add(board[row][col])
+            }
+
+            if (isValidSubGrid(row, col)) {
+                continue
+            } else {
+                return false
             }
         }
     }

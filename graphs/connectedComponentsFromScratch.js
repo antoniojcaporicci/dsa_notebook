@@ -1,51 +1,48 @@
 function number_of_connected_components(n, edges) {
     // create adjList of length n populated by edges
-    let adjList = Array.from(Array(n), () => ([]))
-    let visited = Array.from(Array(n), () => (-1))
+    let adjList = Array.from(Array(n), () => [])
+    let visited = []
 
-    for (let i = 0; i < edges.length; i++) {
-        adjList[edges[i][0]].push(edges[i][1])
-        adjList[edges[i][1]].push(edges[i][0])
+    for (let edge of edges) {
+        adjList[edge[0]].push(edge[1])
+        adjList[edge[1]].push(edge[0])
     }
 
-    // launch bfs on graph and keep track of visited
-    const bfsHelper = (graphNode, adjList, visited) => {
+    // perform bfs on adjList to determine how many neighbors a node has
+    // toggle a neighbor to visited by adding to the visited set
+    const bfs = (node, list) => {
         let queue = []
-        let i = 0
-        queue.push(graphNode)
+        queue.push(node)
 
         while (queue.length) {
-            let node = queue.pop()
-            let neighbors = adjList[node]
+            let newNode = queue.shift()
+            if (!visited.includes(newNode)) {
+                visited.push(newNode)
 
-            for (let j = 0; j < neighbors.length; j++) {
-                if (visited[neighbors[j]] === -1) {
-                    visited[neighbors[j]] = 1
-                    queue.push(neighbors[j])
+                for (let neighbor of list[newNode]) {
+                    queue.push(neighbor)
                 }
             }
-            i++
         }
     }
 
-    // start traversal at node 0
-    bfsHelper(0, adjList, visited)
+    bfs(0, adjList)
+    let connectedCount = 1
 
-    let unconnected = 1
-    // run outer loop to catch any unconnected components
-    for (let i = 1; i < visited.length; i++) {
-        if (visited[i] === -1) {
-            unconnected++
-            bfsHelper(i, adjList, visited)
+    for (let i = 1; i < adjList.length; i++) {
+        if (!visited.includes(i)) {
+            visited.push(i)
+            connectedCount++
+            bfs(i, adjList)
         }
     }
 
-    return unconnected
+    return connectedCount
 }
 
 const inputs = {
     "n": 4,
-    "edges": [[0 , 1], [0 , 3], [0 , 2], [2 , 1], [2 , 3]]
-    }
+    "edges": [[0, 1], [0, 3], [0, 2], [2, 1], [2, 3]]
+}
 
-number_of_connected_components(inputs.n, inputs.edges)
+console.log(number_of_connected_components(inputs.n, inputs.edges))
