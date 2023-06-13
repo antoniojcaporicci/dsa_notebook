@@ -6,6 +6,18 @@ export default class BinaryTreeNode {
         this.left = null
     }
 
+    printValues = (root) => {
+        if (!root) return
+        if (!root.right && !root.left) {
+            console.log(root.value)
+            return
+        }
+
+        this.printValues(root.left)
+        console.log(root.value)
+        this.printValues(root.right)
+    }
+
     search = (root, value) => {
         if (root.value === null) {
             return null
@@ -26,41 +38,29 @@ export default class BinaryTreeNode {
         return null
     }
 
-    insert = (root, value) => {
-        if (root.value === null) {
-            return new BinaryTreeNode(value)
-        }
-
-        let newNode = new BinaryTreeNode(value)
-        let prev = null
-        let curr = root
-
-        while (curr !== null) {
-            if (curr.value === value) {
-                'value already exists'
-                return curr
-            } else if (value < curr.value) {
-                prev = curr
-                curr = curr.left
+    insert = (newNode, root) => {
+        if (!root) return
+        if (newNode.value < root.value) {
+            if (!root.left) {
+                root.left = newNode
             } else {
-                prev = curr
-                curr = curr.right
+                this.insert(newNode, root.left)
+            }
+        } else {
+            if (!root.right) {
+                root.right = newNode
+            } else {
+                this.insert(newNode, root.right)
             }
         }
-
-        if (value < prev.value) {
-            prev.left = newNode
-        } else {
-            prev.right = newNode
-        }
-
-        return root
+        return this
     }
 
     insertCollection = (collection) => {
         let i = 0
         while (i < collection.length) {
-            this.insert(this, collection[i])
+            let newNode = new BinaryTreeNode(collection[i])
+            this.insert(newNode, this)
             i++
         }
 
@@ -153,10 +153,12 @@ export default class BinaryTreeNode {
     }
 }
 
-// const tree = new BinaryTreeNode(9)
+const tree = new BinaryTreeNode(9)
 
-// tree.insertCollection([1, 3, 5, 7, 11])
+tree.insertCollection([1, 3, 5, 7, 11])
 
-// tree.insert(tree, 13)
+const newNode = new BinaryTreeNode(9)
 
-// console.log(tree.delete(5))
+tree.insert(newNode)
+
+tree.printValues(tree)
